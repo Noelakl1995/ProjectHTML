@@ -1,0 +1,60 @@
+/* styles.css */
+
+/* Estilos para o corpo da página */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    
+}
+
+/* Estilos para a seção do formulário */
+.formulario_contato {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    background-color: #f4f4f9;
+}
+
+/* Estilos para os rótulos e campos de entrada do formulário */
+.formulario_contato label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    display: block;
+    color: #333;
+}
+
+.formulario_contato input,
+.formulario_contato textarea {
+    width: 95%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+.formulario_contato textarea {
+    resize: vertical;
+}
+
+/* Estilos para o botão de envio */
+.formulario_contato button {
+    width: 100%;
+    padding: 10px;
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.formulario_contato button:hover {
+    background-color: #218838;
+}
