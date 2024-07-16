@@ -31,6 +31,7 @@ Algumas sugestões para aplicar no projeto
     3.4 - Crie cabeçalho e rodapé no projeto, em todas as páginas
     3.5 - Insira as redes sociais que você tem com os respectivos icones
     3.6 - Nas imagens das redes sociais insira os links para as redes sociais
+    3.7 - Use cor de fundo no site
 
 
 
