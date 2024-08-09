@@ -1,24 +1,28 @@
-document.addEventListener('DOMContentLoaded', (event) => {
-    // Mostrar/Esconder Detalhes
+document.addEventListener('DOMContentLoaded', () => {
     const toggleButton = document.getElementById('toggle-details');
     const extraDetails = document.querySelector('.extra-details');
 
-    /*
-   toggleButton.addEventListener('click', () => {
-        if (extraDetails.style.display === 'none' || extraDetails.style.display === '') {
-            extraDetails.style.display = 'block';
-            toggleButton.textContent = 'Esconder Detalhes';
-        } else {
-            extraDetails.style.display = 'none';
-            toggleButton.textContent = 'Mostrar Detalhes';
-        }
-    });*/
+    if (toggleButton && extraDetails) {
+        toggleButton.addEventListener('click', () => {
+            if (extraDetails.style.display === 'none' || extraDetails.style.display === '') {
+                extraDetails.style.display = 'block';
+                toggleButton.textContent = 'Esconder Detalhes';
+            } else {
+                extraDetails.style.display = 'none';
+                toggleButton.textContent = 'Mostrar Detalhes';
+            }
+        });
+    } 
+
+
 
     // Efeito de Desvanecimento ao Passar o Mouse (Hover) em Elementos
     const foto = document.querySelector('#foto');
-    
+
+    if (foto) {
         foto.addEventListener('mouseover', () => foto.style.opacity = '0.5');
         foto.addEventListener('mouseout', () => foto.style.opacity = '1');
+    }
     
 
     // Botão de Voltar ao Topo
@@ -52,16 +56,26 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
     // Validação de Formulário em Tempo Real
     const form = document.querySelector('form');
-    const nomeInput = document.querySelector('#nome');
-    const emailInput = document.querySelector('#email');
-    const telefoneInput = document.querySelector('#telefone');
-    const mensagemInput = document.querySelector('#mensagem');
+    const nomeInput = document.getElementById('nome');
+    const emailInput = document.getElementById('email');
+    const telefoneInput = document.getElementById('telefone');
+    const mensagemInput = document.getElementById('mensagem');
 
-    form.addEventListener('input', () => {
-        nomeInput.setCustomValidity(nomeInput.validity.valueMissing ? 'Nome é obrigatório' : '');
-        emailInput.setCustomValidity(emailInput.validity.typeMismatch ? 'E-mail inválido' : '');
-        telefoneInput.setCustomValidity(telefoneInput.validity.patternMismatch ? 'Telefone inválido' : '');
-    });
+    if (form && nomeInput && emailInput && telefoneInput && mensagemInput) {
+        form.addEventListener('submit', (event) => {
+            event.preventDefault();
+            nomeInput.setCustomValidity(nomeInput.validity.valueMissing ? 'Nome é obrigatório' : '');
+            emailInput.setCustomValidity(emailInput.validity.typeMismatch ? 'E-mail inválido' : '');
+            telefoneInput.setCustomValidity(telefoneInput.validity.patternMismatch ? 'Telefone inválido' : '');
+    
+            if (form.checkValidity()) {
+                form.submit();
+            }
+        });
+    } else {
+        console.log('Um ou mais elementos do formulário não foram encontrados no DOM.');
+    }
+
 
     // Contador de Caracteres em Texto
     const maxLength = 200;
@@ -75,6 +89,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     form.appendChild(charCounter);
 
     // Envio de Formulário via AJAX
+    
     form.addEventListener('submit', (event) => {
         event.preventDefault();
         const formData = new FormData(form);
@@ -90,6 +105,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
             }
         }).catch(error => alert('Erro ao enviar formulário.'));
     });
+    
 
     // Tema Dinâmico (Claro/Escuro)
     const themeToggleButton = document.createElement('button');
