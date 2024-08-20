@@ -54,27 +54,90 @@ document.addEventListener('DOMContentLoaded', () => {
     visitCountDisplay.textContent = `Visitas: ${visitCount}`;
     document.body.insertBefore(visitCountDisplay, document.body.firstChild);
 
-    // Validação de Formulário em Tempo Real
+   // Validação de Formulário em Tempo Real
     const form = document.querySelector('form');
     const nomeInput = document.getElementById('nome');
     const emailInput = document.getElementById('email');
     const telefoneInput = document.getElementById('telefone');
     const mensagemInput = document.getElementById('mensagem');
 
+    const nomeError = document.getElementById('nomeError');
+    const emailError = document.getElementById('emailError');
+    const telefoneError = document.getElementById('telefoneError');
+    const mensagemError = document.getElementById('mensagemError');
+
     if (form && nomeInput && emailInput && telefoneInput && mensagemInput) {
         form.addEventListener('submit', (event) => {
             event.preventDefault();
-            nomeInput.setCustomValidity(nomeInput.validity.valueMissing ? 'Nome é obrigatório' : '');
-            emailInput.setCustomValidity(emailInput.validity.typeMismatch ? 'E-mail inválido' : '');
-            telefoneInput.setCustomValidity(telefoneInput.validity.patternMismatch ? 'Telefone inválido' : '');
-    
-            if (form.checkValidity()) {
-                form.submit();
+            let isValid = true;
+
+            isValid &&= validateField(nomeInput);
+            isValid &&= validateField(emailInput);
+            isValid &&= validateField(telefoneInput);
+            isValid &&= validateField(mensagemInput);
+
+            if (isValid) {
+                alert('Formulário enviado com sucesso!');
+                form.reset();
+            } else {
+                alert('Por favor, corrija os erros antes de enviar.');
             }
         });
     } else {
         console.log('Um ou mais elementos do formulário não foram encontrados no DOM.');
     }
+
+    function validateField(field) {
+        let valid = true;
+
+        switch (field.id) {
+            case 'nome':
+                if (field.validity.valueMissing) {
+                    nomeError.textContent = 'Nome é obrigatório';
+                    valid = false;
+                } else {
+                    nomeError.textContent = '';
+                }
+                break;
+
+            case 'email':
+                if (field.validity.valueMissing) {
+                    emailError.textContent = 'E-mail é obrigatório';
+                    valid = false;
+                } else if (field.validity.typeMismatch) {
+                    emailError.textContent = 'E-mail inválido';
+                    valid = false;
+                } else {
+                    emailError.textContent = '';
+                }
+                break;
+
+            case 'telefone':
+                if (field.validity.valueMissing) {
+                    telefoneError.textContent = 'Telefone é obrigatório';
+                    valid = false;
+                } else if (field.validity.patternMismatch) {
+                    telefoneError.textContent = 'Telefone deve conter 10 ou 11 dígitos';
+                    valid = false;
+                } else {
+                    telefoneError.textContent = '';
+                }
+                break;
+
+            case 'mensagem':
+                if (field.validity.valueMissing) {
+                    mensagemError.textContent = 'Mensagem é obrigatória';
+                    valid = false;
+                } else {
+                    mensagemError.textContent = '';
+                }
+                break;
+        }
+
+        return valid;
+    }
+
+
 
 
     // Contador de Caracteres em Texto
